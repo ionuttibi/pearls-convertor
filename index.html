@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Convertor RON în Pearls</title>
+</head>
+<body>
+    <h2>Convertor RON în Pearls</h2>
+
+    <label for="ron">Suma în RON:</label>
+    <input type="number" id="ron" placeholder="Introduceți suma în RON">
+
+    <button onclick="convert()">Convertește</button>
+
+    <p id="result"></p>
+
+    <script>
+        function convert() {
+            const ron = document.getElementById('ron').value;
+            const euroRate = 5; // Presupunem cursul 1 EUR = 5 RON
+            const pearlsPerEuro = 55 / 100; // 55 Pearls la 100 EUR => 0.55 Pearls per EUR
+
+            const euro = ron / euroRate;
+            const pearls = euro * pearlsPerEuro;
+
+            document.getElementById('result').innerText = `Primești aproximativ ${pearls.toFixed(2)} Pearls.`;
+        }
+    </script>
+</body>
+</html>
