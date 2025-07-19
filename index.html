@@ -3,91 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convertor RON ↔ Pearls</title>
+    <title>Convertor Pearls ↔ RON</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f2f2f2;
+            background: #f9f9f9;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .converter {
+        .container {
             background: white;
-            padding: 20px 30px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
             width: 300px;
         }
-        input, select, button {
-            width: 100%;
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
             padding: 10px;
-            margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 1rem;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #result {
-            margin-top: 15px;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="converter">
-        <h2>Convertor RON ↔ Pearls</h2>
+    <div class="container">
+        <h2>Convertor Pearls ↔ RON</h2>
 
-        <input type="number" id="amount" placeholder="Introduce suma">
+        <div class="input-group">
+            <label for="pearls">Pearls</label>
+            <input type="number" id="pearls" placeholder="Introdu Pearls">
+        </div>
 
-        <select id="conversionType">
-            <option value="ronToPearl">RON → Pearls</option>
-            <option value="pearlToRon">Pearls → RON</option>
-        </select>
-
-        <button onclick="convert()">Convertește</button>
-
-        <p id="result"></p>
+        <div class="input-group">
+            <label for="ron">RON</label>
+            <input type="number" id="ron" placeholder="Introdu RON">
+        </div>
     </div>
 
     <script>
-        function convert() {
-            const amount = parseFloat(document.getElementById('amount').value);
-            const conversionType = document.getElementById('conversionType').value;
+        const pearlsInput = document.getElementById('pearls');
+        const ronInput = document.getElementById('ron');
 
-            if (isNaN(amount) || amount <= 0) {
-                document.getElementById('result').innerText = 'Introduceți o valoare validă.';
-                return;
-            }
+        const euroRate = 5; // 1 EUR = 5 RON
+        const pearlsPerEuro = 55 / 100; // 0.55 Pearls per EUR
+        const euroPerPearl = 1 / pearlsPerEuro; // cât EUR pentru 1 Pearl
 
-            const euroRate = 5; // 1 EUR = 5 RON
-            const pearlPerEuro = 55 / 100; // 0.55 Pearl per EUR
-            let result = 0;
-
-            if (conversionType === 'ronToPearl') {
-                const euro = amount / euroRate;
-                result = euro * pearlPerEuro;
-                document.getElementById('result').innerText = `${amount} RON ≈ ${result.toFixed(2)} Pearls`;
-            } else {
-                const euro = amount / pearlPerEuro;
+        pearlsInput.addEventListener('input', () => {
+            const pearls = parseFloat(pearlsInput.value);
+            if (!isNaN(pearls)) {
+                const euro = pearls * euroPerPearl;
                 const ron = euro * euroRate;
-                document.getElementById('result').innerText = `${amount} Pearls ≈ ${ron.toFixed(2)} RON`;
+                ronInput.value = ron.toFixed(2);
+            } else {
+                ronInput.value = '';
             }
-        }
+        });
+
+        ronInput.addEventListener('input', () => {
+            const ron = parseFloat(ronInput.value);
+            if (!isNaN(ron)) {
+                const euro = ron / euroRate;
+                const pearls = euro * pearlsPerEuro;
+                pearlsInput.value = pearls.toFixed(2);
+            } else {
+                pearlsInput.value = '';
+            }
+        });
     </script>
 
 </body>
