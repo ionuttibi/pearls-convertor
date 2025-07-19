@@ -1,29 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
-    <title>Convertor RON în Pearls</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertor RON ↔ Pearls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .converter {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h2>Convertor RON în Pearls</h2>
 
-    <label for="ron">Suma în RON:</label>
-    <input type="number" id="ron" placeholder="Introduceți suma în RON">
+    <div class="converter">
+        <h2>Convertor RON ↔ Pearls</h2>
 
-    <button onclick="convert()">Convertește</button>
+        <input type="number" id="amount" placeholder="Introduce suma">
 
-    <p id="result"></p>
+        <select id="conversionType">
+            <option value="ronToPearl">RON → Pearls</option>
+            <option value="pearlToRon">Pearls → RON</option>
+        </select>
+
+        <button onclick="convert()">Convertește</button>
+
+        <p id="result"></p>
+    </div>
 
     <script>
         function convert() {
-            const ron = document.getElementById('ron').value;
-            const euroRate = 5; // Presupunem cursul 1 EUR = 5 RON
-            const pearlsPerEuro = 55 / 100; // 55 Pearls la 100 EUR => 0.55 Pearls per EUR
+            const amount = parseFloat(document.getElementById('amount').value);
+            const conversionType = document.getElementById('conversionType').value;
 
-            const euro = ron / euroRate;
-            const pearls = euro * pearlsPerEuro;
+            if (isNaN(amount) || amount <= 0) {
+                document.getElementById('result').innerText = 'Introduceți o valoare validă.';
+                return;
+            }
 
-            document.getElementById('result').innerText = `Primești aproximativ ${pearls.toFixed(2)} Pearls.`;
+            const euroRate = 5; // 1 EUR = 5 RON
+            const pearlPerEuro = 55 / 100; // 0.55 Pearl per EUR
+            let result = 0;
+
+            if (conversionType === 'ronToPearl') {
+                const euro = amount / euroRate;
+                result = euro * pearlPerEuro;
+                document.getElementById('result').innerText = `${amount} RON ≈ ${result.toFixed(2)} Pearls`;
+            } else {
+                const euro = amount / pearlPerEuro;
+                const ron = euro * euroRate;
+                document.getElementById('result').innerText = `${amount} Pearls ≈ ${ron.toFixed(2)} RON`;
+            }
         }
     </script>
+
 </body>
 </html>
