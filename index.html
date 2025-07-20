@@ -68,33 +68,7 @@
         const euroRate = 5.07; // 1 EUR = 5 RON
         const pearlsPerEuro = 55 / 100; // 0.55 Pearls per EUR
         const euroPerPearl = 1 / pearlsPerEuro; // cât EUR pentru 1 Pearl
-
-        // Check if online/offline
-          function updateOnlineStatus() {
-            const offlineMessage = document.getElementById('offline-message');
-            if (navigator.onLine) {
-              offlineMessage.style.display = 'none';
-            } else {
-              offlineMessage.style.display = 'block';
-            }
-          }
         
-          window.addEventListener('online', updateOnlineStatus);
-          window.addEventListener('offline', updateOnlineStatus);
-          updateOnlineStatus(); // Check on initial load
-
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function() {
-            navigator.serviceWorker.register('service-worker.js')
-              .then(function(registration) {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-              })
-              .catch(function(err) {
-                console.log('ServiceWorker registration failed: ', err);
-              });
-          });
-        }
-
         pearlsInput.addEventListener('input', () => {
             const pearls = parseFloat(pearlsInput.value);
             if (!isNaN(pearls)) {
