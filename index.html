@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="ro">
-    
-<link rel="manifest" href="manifest.json">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convertor Pearls ↔ RON</title>
+    <link rel="manifest" href="manifest.json">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f9f9f9;
+            background: linear-gradient(135deg, #b12756, #ff6f91, #b12756);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,15 +22,20 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             width: 300px;
+            text-align: center;
+        }
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
         }
         h2 {
-            text-align: center;
             margin-bottom: 20px;
         }
         .input-group {
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
+            text-align: left;
         }
         label {
             margin-bottom: 5px;
@@ -48,16 +52,17 @@
 <body>
 
     <div class="container">
+        <img src="https://play-lh.googleusercontent.com/IRAIRFTHBdS2RCG5T8nuRv2hk3noyv-ANKfWEdIqXfRcR3VgRMuOiGRkfmjn0m10PTU" alt="Tomorrowland Logo" class="logo">
         <h2>Convertor Pearls ↔ RON</h2>
 
         <div class="input-group">
-            <label for="pearls">Pearls</label>
-            <input type="number" id="pearls" placeholder="Introdu Pearls">
+            <label for="pearls">Number of Pearls</label>
+            <input type="number" id="pearls" placeholder="Pearls">
         </div>
 
         <div class="input-group">
             <label for="ron">RON</label>
-            <input type="number" id="ron" placeholder="Introdu RON">
+            <input type="number" id="ron" placeholder="RON">
         </div>
     </div>
 
@@ -65,9 +70,9 @@
         const pearlsInput = document.getElementById('pearls');
         const ronInput = document.getElementById('ron');
 
-        const euroRate = 5.07; // 1 EUR = 5 RON
-        const pearlsPerEuro = 55 / 100; // 0.55 Pearls per EUR
-        const euroPerPearl = 1 / pearlsPerEuro; // cât EUR pentru 1 Pearl
+        const euroRate = 5.07; 
+        const pearlsPerEuro = 55 / 100; 
+        const euroPerPearl = 1 / pearlsPerEuro;
         
         pearlsInput.addEventListener('input', () => {
             const pearls = parseFloat(pearlsInput.value);
